@@ -30,15 +30,13 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private HotelMapper mapper;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Cliente cliente) {
-        if (clienteServiceImpl.existsByEmail(cliente.getEmail())) {
+    public ResponseEntity<?> register(@RequestBody ClienteDTO clienteDTO) {
+        if (clienteServiceImpl.existsByEmail(clienteDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email ya está registrado");
         }
-        clienteServiceImpl.registrarCliente(mapper.fromCliente(cliente));
+        clienteServiceImpl.registrarCliente(clienteDTO);
         return ResponseEntity.ok("Usuario registrado exitosamente");
     }
 

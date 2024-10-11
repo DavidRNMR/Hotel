@@ -2,11 +2,13 @@ package com.hotel.service;
 
 import com.hotel.dto.ReservaDTO;
 import com.hotel.entity.HabitacionTipo;
+import com.hotel.entity.Pago;
 import com.hotel.entity.Reserva;
 import com.hotel.enums.EstadoReserva;
 import com.hotel.mapper.HotelMapper;
 import com.hotel.repository.ClienteRepository;
 import com.hotel.repository.HabitacionTipoRepository;
+import com.hotel.repository.PagoRepository;
 import com.hotel.repository.ReservaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class ReservaServiceImpl implements ReservaService {
     private HotelMapper mapper;
     private HabitacionTipoRepository habitacionTipoRepository;
     private ClienteRepository clienteRepository;
-
+    private PagoRepository pagoRepository;
 
 
     public ReservaDTO crearReserva (ReservaDTO reservaDTO) throws Exception {
@@ -48,6 +50,11 @@ public class ReservaServiceImpl implements ReservaService {
             reserva.setFechaInicio(fechaInicio);
             reserva.setFechaFin(fechaFin);
             reserva.setEstado(EstadoReserva.CONFIRMADA);
+
+            Pago pago = new Pago();
+            pago.setMonto(habitacionTipo.getTipo().getPrecioBase());
+            reserva.setPago(pago);
+            pagoRepository.save(pago);
 
             reservaRepository.save(reserva);
 

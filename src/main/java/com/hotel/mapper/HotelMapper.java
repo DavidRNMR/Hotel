@@ -26,6 +26,9 @@ public ReservaDTO fromReserva (Reserva reserva){
     HabitacionTipo habitacionTipo = reserva.getHabitacionTipo();
     reservaDTO.setHabitacionTipoId(habitacionTipo.getId());
 
+    Pago pago = reserva.getPago();
+    reservaDTO.setPagoId(pago.getId());
+
     return reservaDTO;
 }
 
