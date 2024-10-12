@@ -3,11 +3,7 @@ package com.hotel.controller;
 import com.hotel.auth.JwtUtil;
 import com.hotel.dto.AuthResponseDTO;
 import com.hotel.dto.ClienteDTO;
-import com.hotel.mapper.HotelMapper;
 import com.hotel.service.ClienteServiceImpl;
-
-import com.hotel.entity.Cliente;
-import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -37,7 +34,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email ya está registrado");
         }
         clienteServiceImpl.registrarCliente(clienteDTO);
-        return ResponseEntity.ok("Usuario registrado exitosamente");
+        return ResponseEntity.ok("usuario registrado con exito");
     }
 
     @PostMapping("/login")
