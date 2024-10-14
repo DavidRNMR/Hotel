@@ -13,5 +13,5 @@ public class HabitacionTipoDTO {
     private TipoHabitacion tipo;
     private BigDecimal precio;
     private int cantidadTotal;
-    private List<Reserva> reservas;
+    private List<ReservaDTO> reservasDTO;
 }
