@@ -1,4 +1,5 @@
 package com.hotel.mapper;
+import com.hotel.dto.ActividadDTO;
 import com.hotel.dto.ClienteDTO;
 import com.hotel.dto.HabitacionTipoDTO;
 import com.hotel.dto.ReservaDTO;
@@ -7,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class HotelMapper {
@@ -29,6 +31,12 @@ public ReservaDTO fromReserva (Reserva reserva){
     Pago pago = reserva.getPago();
     reservaDTO.setPagoId(pago.getId());
 
+    List<Actividad> actividades = reserva.getActividades();
+
+    List<ActividadDTO> actividadDTOList = actividades.stream().map(this::fromActividad)
+            .toList();
+
+reservaDTO.setActividadDTOList(actividadDTOList);
     return reservaDTO;
 }
 
@@ -47,17 +55,13 @@ public Cliente fromClienteDTO (ClienteDTO clienteDTO){
     BeanUtils.copyProperties(clienteDTO,cliente);
     return cliente;
 }
-public HabitacionTipoDTO fromHabitacionTipo(HabitacionTipo habitacionTipo){
 
-    HabitacionTipoDTO habitacionTipoDTO = new HabitacionTipoDTO();
-    BeanUtils.copyProperties(habitacionTipo,habitacionTipoDTO);
-    return habitacionTipoDTO;
+public ActividadDTO fromActividad (Actividad actividad){
+
+    ActividadDTO actividadDTO = new ActividadDTO();
+    BeanUtils.copyProperties(actividad,actividadDTO);
+
+    return actividadDTO;
 }
 
-public HabitacionTipo fromHabitacionTipoDTO (HabitacionTipoDTO habitacionTipoDTO){
-
-    HabitacionTipo habitacionTipo = new HabitacionTipo();
-    BeanUtils.copyProperties(habitacionTipoDTO,habitacionTipo);
-    return habitacionTipo;
-}
 }

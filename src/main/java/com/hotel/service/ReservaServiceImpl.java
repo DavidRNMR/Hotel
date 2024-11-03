@@ -1,20 +1,21 @@
 package com.hotel.service;
 
+import com.hotel.dto.ActividadDTO;
 import com.hotel.dto.ReservaDTO;
+import com.hotel.entity.Actividad;
 import com.hotel.entity.HabitacionTipo;
 import com.hotel.entity.Pago;
 import com.hotel.entity.Reserva;
 import com.hotel.enums.EstadoReserva;
 import com.hotel.mapper.HotelMapper;
-import com.hotel.repository.ClienteRepository;
-import com.hotel.repository.HabitacionTipoRepository;
-import com.hotel.repository.PagoRepository;
-import com.hotel.repository.ReservaRepository;
+import com.hotel.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ public class ReservaServiceImpl implements ReservaService {
     private HabitacionTipoRepository habitacionTipoRepository;
     private ClienteRepository clienteRepository;
     private PagoRepository pagoRepository;
+    private ActividadRepository actividadRepository;
 
 
     public ReservaDTO crearReserva (ReservaDTO reservaDTO) throws Exception {
@@ -36,6 +38,7 @@ public class ReservaServiceImpl implements ReservaService {
             Long habitacionTipoId = reservaDTO.getHabitacionTipoId();
             LocalDate fechaInicio = reservaDTO.getFechaInicio();
             LocalDate fechaFin = reservaDTO.getFechaFin();
+
 
             HabitacionTipo habitacionTipo = habitacionTipoRepository.findById(habitacionTipoId)
                     .orElseThrow(() -> new Exception("no existe esa habitación"));
@@ -51,10 +54,30 @@ public class ReservaServiceImpl implements ReservaService {
             reserva.setFechaFin(fechaFin);
             reserva.setEstado(EstadoReserva.CONFIRMADA);
 
+
+            List<ActividadDTO> actividadDTOList = reservaDTO.getActividadDTOList();
+
+            BigDecimal precioActiviades = BigDecimal.ZERO;
+
+            for (ActividadDTO actividadDTO: actividadDTOList){
+
+                Actividad actividad = new Actividad();
+                actividad.setId(actividadDTO.getId());
+                actividad.setHoraInicio(actividadDTO.getHoraInicio());
+                actividad.setTipoActividad(actividadDTO.getTipoActividad());
+                actividad.setReserva(reserva);
+
+                reserva.aniadirActividad(actividad);
+                actividadRepository.save(actividad);
+
+                precioActiviades = precioActiviades.add(actividad.getTipoActividad().getPrecio());
+            }
+
             Pago pago = new Pago();
-            pago.setMonto(habitacionTipo.getTipo().getPrecioBase());
+            pago.setMonto(habitacionTipo.getTipo().getPrecioBase().add(precioActiviades));
             reserva.setPago(pago);
             pagoRepository.save(pago);
+
 
             reservaRepository.save(reserva);
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,9 +41,14 @@ public class Reserva {
     private Pago pago;
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Actividad> actividades;
+    private List<Actividad> actividades = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "traslado_id")
     private Traslado traslado;
+
+    public void aniadirActividad (Actividad actividad){
+        actividades.add(actividad);
+        actividad.setReserva(this);
+    }
 }
