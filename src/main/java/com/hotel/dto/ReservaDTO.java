@@ -4,6 +4,8 @@ import com.hotel.enums.EstadoReserva;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -17,5 +19,6 @@ public class ReservaDTO {
     private String nombreCliente;
     private Long habitacionTipoId;
     private Long pagoId;
+    private List<ActividadDTO> actividadDTOList = new ArrayList<>();
     private Long trasladoId;
 }

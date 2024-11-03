@@ -1,5 +1,6 @@
 package com.hotel.entity;
 
+import com.hotel.enums.TipoActividad;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,8 @@ public class Actividad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    @Enumerated(EnumType.STRING)
+    private TipoActividad tipoActividad;
 
     private LocalDateTime horaInicio;
 

@@ -1,6 +1,6 @@
 package com.hotel.dto;
 
-import com.hotel.entity.Reserva;
+import com.hotel.enums.TipoActividad;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class ActividadDTO {
 
     private Long id;
-    private String nombre;
     private LocalDateTime horaInicio;
-    private Reserva reserva;
+    private TipoActividad tipoActividad;
 }

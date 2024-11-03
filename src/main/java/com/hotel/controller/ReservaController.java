@@ -45,6 +45,6 @@ public class ReservaController {
         ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
         Cliente cliente = userDetails.getCliente();
         reservaService.cancelarReserva(id, cliente.getId());
-        return ResponseEntity.ok("Reserva cancelada exitosamente");
+        return ResponseEntity.ok("Reserva cancelada");
     }
 }
