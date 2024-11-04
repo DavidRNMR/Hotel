@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -46,5 +47,12 @@ public class ReservaController {
         Cliente cliente = userDetails.getCliente();
         reservaService.cancelarReserva(id, cliente.getId());
         return ResponseEntity.ok("Reserva cancelada");
+    }
+
+    @PostMapping("/calcularPrecio")
+    public ResponseEntity<BigDecimal> calcularPrecioReserva (@RequestBody ReservaDTO reservaDTO,Authentication authentication) throws Exception {
+        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
+        Cliente cliente = userDetails.getCliente();
+        return ResponseEntity.ok(reservaService.calcularPrecioReserva(reservaDTO));
     }
 }
