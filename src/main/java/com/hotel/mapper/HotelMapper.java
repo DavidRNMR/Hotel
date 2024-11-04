@@ -1,10 +1,9 @@
 package com.hotel.mapper;
-import com.hotel.dto.ActividadDTO;
-import com.hotel.dto.ClienteDTO;
-import com.hotel.dto.HabitacionTipoDTO;
-import com.hotel.dto.ReservaDTO;
+import com.hotel.dto.*;
 import com.hotel.entity.*;
+import com.hotel.repository.TrasladoRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public ReservaDTO fromReserva (Reserva reserva){
     reservaDTO.setEstado(reserva.getEstado());
 
     Cliente cliente = reserva.getCliente();
-    reservaDTO.setClienteId(cliente.getId());
     reservaDTO.setNombreCliente(cliente.getNombre());
+
 
     HabitacionTipo habitacionTipo = reserva.getHabitacionTipo();
     reservaDTO.setHabitacionTipoId(habitacionTipo.getId());
@@ -35,6 +34,9 @@ public ReservaDTO fromReserva (Reserva reserva){
 
     List<ActividadDTO> actividadDTOList = actividades.stream().map(this::fromActividad)
             .toList();
+
+    Traslado traslado = reserva.getTraslado();
+    reservaDTO.setTrasladoDTO(fromTraslado(traslado));
 
 reservaDTO.setActividadDTOList(actividadDTOList);
     return reservaDTO;
@@ -63,5 +65,18 @@ public ActividadDTO fromActividad (Actividad actividad){
 
     return actividadDTO;
 }
+public TrasladoDTO fromTraslado (Traslado traslado){
+
+    TrasladoDTO trasladoDTO = new TrasladoDTO();
+    BeanUtils.copyProperties(traslado,trasladoDTO);
+    return trasladoDTO;
+}
+
+    public Traslado fromTrasladoDTO (TrasladoDTO trasladoDTO){
+
+        Traslado traslado = new Traslado();
+        BeanUtils.copyProperties(trasladoDTO,traslado);
+        return traslado;
+    }
 
 }

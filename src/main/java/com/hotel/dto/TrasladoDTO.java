@@ -1,12 +1,12 @@
 package com.hotel.dto;
 
-import com.hotel.entity.Reserva;
+import com.hotel.enums.TipoTraslado;
 import lombok.Data;
 
 @Data
 public class TrasladoDTO {
 
     private Long id;
-    private String origen;
-    private Reserva reserva;
+    private TipoTraslado tipoTraslado;
+
 }
