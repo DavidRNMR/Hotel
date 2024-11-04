@@ -2,11 +2,9 @@ package com.hotel.service;
 
 import com.hotel.dto.ActividadDTO;
 import com.hotel.dto.ReservaDTO;
-import com.hotel.entity.Actividad;
-import com.hotel.entity.HabitacionTipo;
-import com.hotel.entity.Pago;
-import com.hotel.entity.Reserva;
+import com.hotel.entity.*;
 import com.hotel.enums.EstadoReserva;
+import com.hotel.enums.TipoTraslado;
 import com.hotel.mapper.HotelMapper;
 import com.hotel.repository.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +28,7 @@ public class ReservaServiceImpl implements ReservaService {
     private ClienteRepository clienteRepository;
     private PagoRepository pagoRepository;
     private ActividadRepository actividadRepository;
+    private TrasladoRepository trasladoRepository;
 
 
     public ReservaDTO crearReserva (ReservaDTO reservaDTO) throws Exception {
@@ -38,6 +37,7 @@ public class ReservaServiceImpl implements ReservaService {
             Long habitacionTipoId = reservaDTO.getHabitacionTipoId();
             LocalDate fechaInicio = reservaDTO.getFechaInicio();
             LocalDate fechaFin = reservaDTO.getFechaFin();
+
 
 
             HabitacionTipo habitacionTipo = habitacionTipoRepository.findById(habitacionTipoId)
@@ -63,7 +63,6 @@ public class ReservaServiceImpl implements ReservaService {
 
                 Actividad actividad = new Actividad();
                 actividad.setId(actividadDTO.getId());
-                actividad.setHoraInicio(actividadDTO.getHoraInicio());
                 actividad.setTipoActividad(actividadDTO.getTipoActividad());
                 actividad.setReserva(reserva);
 
@@ -73,8 +72,13 @@ public class ReservaServiceImpl implements ReservaService {
                 precioActiviades = precioActiviades.add(actividad.getTipoActividad().getPrecio());
             }
 
+            Traslado traslado = mapper.fromTrasladoDTO(reservaDTO.getTrasladoDTO());
+            traslado.setReserva(reserva);
+            reserva.setTraslado(traslado);
+            trasladoRepository.save(traslado);
+
             Pago pago = new Pago();
-            pago.setMonto(habitacionTipo.getTipo().getPrecioBase().add(precioActiviades));
+            pago.setMonto(habitacionTipo.getTipo().getPrecioBase().add(precioActiviades).add(traslado.getTipoTraslado().getPrecio()));
             reserva.setPago(pago);
             pagoRepository.save(pago);
 

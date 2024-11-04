@@ -20,5 +20,5 @@ public class ReservaDTO {
     private Long habitacionTipoId;
     private Long pagoId;
     private List<ActividadDTO> actividadDTOList = new ArrayList<>();
-    private Long trasladoId;
+    private TrasladoDTO trasladoDTO;
 }

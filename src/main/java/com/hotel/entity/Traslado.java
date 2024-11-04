@@ -1,5 +1,6 @@
 package com.hotel.entity;
 
+import com.hotel.enums.TipoTraslado;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,8 @@ public class Traslado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String origen;
+    @Enumerated(EnumType.STRING)
+    private TipoTraslado tipoTraslado;
 
     @OneToOne(mappedBy = "traslado",fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id")

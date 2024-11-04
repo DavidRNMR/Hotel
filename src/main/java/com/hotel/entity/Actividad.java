@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -22,7 +21,6 @@ public class Actividad {
     @Enumerated(EnumType.STRING)
     private TipoActividad tipoActividad;
 
-    private LocalDateTime horaInicio;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id")
