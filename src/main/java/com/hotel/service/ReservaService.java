@@ -14,5 +14,5 @@ public interface ReservaService {
 
     void cancelarReserva(Long reservaId, Long clienteId) throws Exception;
 
-    BigDecimal calcularPrecioReserva(ReservaDTO reservaDTO) throws Exception;
+    //BigDecimal calcularPrecioReserva(ReservaDTO reservaDTO) throws Exception;
 }

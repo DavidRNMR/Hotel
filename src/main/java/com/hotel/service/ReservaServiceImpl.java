@@ -52,27 +52,27 @@ public class ReservaServiceImpl implements ReservaService {
             reserva.setFechaFin(fechaFin);
             reserva.setEstado(EstadoReserva.CONFIRMADA);
 
-            List<ActividadDTO> actividadDTOList = reservaDTO.getActividadDTOList();
-
-
-            for (ActividadDTO actividadDTO: actividadDTOList){
-
-                Actividad actividad = new Actividad();
-                actividad.setId(actividadDTO.getId());
-                actividad.setTipoActividad(actividadDTO.getTipoActividad());
-                actividad.setReserva(reserva);
-
-                reserva.aniadirActividad(actividad);
-                actividadRepository.save(actividad);
-            }
-
-            Traslado traslado = mapper.fromTrasladoDTO(reservaDTO.getTrasladoDTO());
-            traslado.setReserva(reserva);
-            reserva.setTraslado(traslado);
-            trasladoRepository.save(traslado);
+//            List<ActividadDTO> actividadDTOList = reservaDTO.getActividadDTOList();
+//
+//
+//            for (ActividadDTO actividadDTO: actividadDTOList){
+//
+//                Actividad actividad = new Actividad();
+//                actividad.setId(actividadDTO.getId());
+//                actividad.setTipoActividad(actividadDTO.getTipoActividad());
+//                actividad.setReserva(reserva);
+//
+//                reserva.aniadirActividad(actividad);
+//                actividadRepository.save(actividad);
+//            }
+//
+//            Traslado traslado = mapper.fromTrasladoDTO(reservaDTO.getTrasladoDTO());
+//            traslado.setReserva(reserva);
+//            reserva.setTraslado(traslado);
+//            trasladoRepository.save(traslado);
 
             Pago pago = new Pago();
-            pago.setMonto(calcularPrecioReserva(reservaDTO));
+            pago.setMonto(habitacionTipo.getTipo().getPrecioBase());
             reserva.setPago(pago);
             pagoRepository.save(pago);
 
@@ -116,30 +116,30 @@ public class ReservaServiceImpl implements ReservaService {
         return habitacionesDisponibles > 0;
     }
 
-    @Override
-    public BigDecimal calcularPrecioReserva(ReservaDTO reservaDTO) throws Exception {
-        BigDecimal montoTotal = BigDecimal.ZERO;
-
-        HabitacionTipo habitacionTipo = habitacionTipoRepository.findById(reservaDTO.getHabitacionTipoId())
-                .orElseThrow(() -> new Exception("no existe habitacion con esa id"));
-
-        BigDecimal precioHabitacion = habitacionTipo.getTipo().getPrecioBase();
-        montoTotal = montoTotal.add(precioHabitacion);
-
-        if (reservaDTO.getActividadDTOList() != null) {
-            for (ActividadDTO actividadDTO : reservaDTO.getActividadDTOList()) {
-
-                BigDecimal precioActividad = actividadDTO.getTipoActividad().getPrecio();
-                montoTotal = montoTotal.add(precioActividad);
-            }
-        }
-
-        if (reservaDTO.getTrasladoDTO() != null && reservaDTO.getTrasladoDTO().getTipoTraslado() != null) {
-            BigDecimal precioTraslado = reservaDTO.getTrasladoDTO().getTipoTraslado().getPrecio();
-            montoTotal = montoTotal.add(precioTraslado);
-        }
-
-        return montoTotal;
-    }
+//    @Override
+//    public BigDecimal calcularPrecioReserva(ReservaDTO reservaDTO) throws Exception {
+//        BigDecimal montoTotal = BigDecimal.ZERO;
+//
+//        HabitacionTipo habitacionTipo = habitacionTipoRepository.findById(reservaDTO.getHabitacionTipoId())
+//                .orElseThrow(() -> new Exception("no existe habitacion con esa id"));
+//
+//        BigDecimal precioHabitacion = habitacionTipo.getTipo().getPrecioBase();
+//        montoTotal = montoTotal.add(precioHabitacion);
+//
+//        if (reservaDTO.getActividadDTOList() != null) {
+//            for (ActividadDTO actividadDTO : reservaDTO.getActividadDTOList()) {
+//
+//                BigDecimal precioActividad = actividadDTO.getTipoActividad().getPrecio();
+//                montoTotal = montoTotal.add(precioActividad);
+//            }
+//        }
+//
+//        if (reservaDTO.getTrasladoDTO() != null && reservaDTO.getTrasladoDTO().getTipoTraslado() != null) {
+//            BigDecimal precioTraslado = reservaDTO.getTrasladoDTO().getTipoTraslado().getPrecio();
+//            montoTotal = montoTotal.add(precioTraslado);
+//        }
+//
+//        return montoTotal;
+//    }
 
 }

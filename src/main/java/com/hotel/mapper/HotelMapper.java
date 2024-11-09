@@ -25,17 +25,17 @@ public ReservaDTO fromReserva (Reserva reserva){
     HabitacionTipo habitacionTipo = reserva.getHabitacionTipo();
     reservaDTO.setHabitacionTipoId(habitacionTipo.getId());
 
-    Pago pago = reserva.getPago();
-    reservaDTO.setPagoId(pago.getId());
+//    Pago pago = reserva.getPago();
+//    reservaDTO.setPagoId(pago.getId());
+//
+//    List<Actividad> actividades = reserva.getActividades();
+//
+//    List<ActividadDTO> actividadDTOList = actividades.stream().map(this::fromActividad)
+//            .toList();
+//
+//    reservaDTO.setTrasladoDTO(fromTraslado(reserva.getTraslado()));
 
-    List<Actividad> actividades = reserva.getActividades();
-
-    List<ActividadDTO> actividadDTOList = actividades.stream().map(this::fromActividad)
-            .toList();
-
-    reservaDTO.setTrasladoDTO(fromTraslado(reserva.getTraslado()));
-
-reservaDTO.setActividadDTOList(actividadDTOList);
+//reservaDTO.setActividadDTOList(actividadDTOList);
     return reservaDTO;
 }
 
@@ -55,26 +55,26 @@ public Cliente fromClienteDTO (ClienteDTO clienteDTO){
     return cliente;
 }
 
-public ActividadDTO fromActividad (Actividad actividad){
-
-    ActividadDTO actividadDTO = new ActividadDTO();
-    BeanUtils.copyProperties(actividad,actividadDTO);
-
-    return actividadDTO;
-}
-
-public TrasladoDTO fromTraslado (Traslado traslado){
-
-    TrasladoDTO trasladoDTO = new TrasladoDTO();
-    BeanUtils.copyProperties(traslado,trasladoDTO);
-    return  trasladoDTO;
-}
-
-public Traslado fromTrasladoDTO (TrasladoDTO trasladoDTO){
-
-    Traslado traslado = new Traslado();
-    BeanUtils.copyProperties(trasladoDTO,traslado);
-    return traslado;
-}
+//public ActividadDTO fromActividad (Actividad actividad){
+//
+//    ActividadDTO actividadDTO = new ActividadDTO();
+//    BeanUtils.copyProperties(actividad,actividadDTO);
+//
+//    return actividadDTO;
+//}
+//
+//public TrasladoDTO fromTraslado (Traslado traslado){
+//
+//    TrasladoDTO trasladoDTO = new TrasladoDTO();
+//    BeanUtils.copyProperties(traslado,trasladoDTO);
+//    return  trasladoDTO;
+//}
+//
+//public Traslado fromTrasladoDTO (TrasladoDTO trasladoDTO){
+//
+//    Traslado traslado = new Traslado();
+//    BeanUtils.copyProperties(trasladoDTO,traslado);
+//    return traslado;
+//}
 
 }

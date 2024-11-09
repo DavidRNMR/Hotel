@@ -49,10 +49,10 @@ public class ReservaController {
         return ResponseEntity.ok("Reserva cancelada");
     }
 
-    @PostMapping("/calcularPrecio")
-    public ResponseEntity<BigDecimal> calcularPrecioReserva (@RequestBody ReservaDTO reservaDTO,Authentication authentication) throws Exception {
-        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
-        Cliente cliente = userDetails.getCliente();
-        return ResponseEntity.ok(reservaService.calcularPrecioReserva(reservaDTO));
-    }
+//    @PostMapping("/calcularPrecio")
+//    public ResponseEntity<BigDecimal> calcularPrecioReserva (@RequestBody ReservaDTO reservaDTO,Authentication authentication) throws Exception {
+//        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
+//        Cliente cliente = userDetails.getCliente();
+//        return ResponseEntity.ok(reservaService.calcularPrecioReserva(reservaDTO));
+//    }
 }
