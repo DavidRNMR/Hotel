@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public enum TipoTraslado {
 
-    IDA(new BigDecimal("50.00")),
-    IDAVUELTA(new BigDecimal("100.00")),
+    IDA(new BigDecimal("10.00")),
+    IDAVUELTA(new BigDecimal("20.00")),
     SINTRASLADO(new BigDecimal("00.00"));
 
 
