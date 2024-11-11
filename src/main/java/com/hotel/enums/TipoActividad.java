@@ -12,7 +12,8 @@ public enum TipoActividad {
     AQUAGYM(new BigDecimal("00.00")),
     SURF(new BigDecimal("100.00")),
     SENDERISMO(new BigDecimal("30.00")),
-    SNORKELING(new BigDecimal("75.00"));
+    SNORKELING(new BigDecimal("75.00")),
+    NINGUNA(new BigDecimal("00.00"));
 
     private BigDecimal precio;
     TipoActividad (BigDecimal precio){
