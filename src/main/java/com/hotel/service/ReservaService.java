@@ -12,7 +12,7 @@ public interface ReservaService {
 
     List<ReservaDTO> obtenerReservasPorCliente (Long clienteId);
 
-    void cancelarReserva(Long reservaId, Long clienteId) throws Exception;
+    void cancelarReserva(Long reservaId) throws Exception;
 
     BigDecimal calcularPrecioReserva(ReservaDTO reservaDTO) throws Exception;
 }
