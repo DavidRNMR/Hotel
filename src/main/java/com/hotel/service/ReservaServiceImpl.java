@@ -5,6 +5,7 @@ import com.hotel.dto.ReservaDTO;
 import com.hotel.entity.*;
 import com.hotel.enums.EstadoReserva;
 import com.hotel.enums.TipoTraslado;
+import com.hotel.exception.HabitacionNoDisponibleException;
 import com.hotel.mapper.HotelMapper;
 import com.hotel.repository.*;
 import lombok.AllArgsConstructor;
@@ -42,7 +43,7 @@ public class ReservaServiceImpl implements ReservaService {
                     .orElseThrow(() -> new Exception("no existe esa habitación"));
 
             if (!verificarDisponibilidad(habitacionTipoId, fechaInicio, fechaFin)) {
-                throw new Exception("habitación no disponible");
+                throw new HabitacionNoDisponibleException("habitación no disponible");
             }
 
             Reserva reserva = new Reserva();
@@ -92,9 +93,9 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
-    public void cancelarReserva(Long reservaId, Long clienteId) throws Exception {
+    public void cancelarReserva(Long reservaId) throws Exception {
 
-        Reserva reserva = reservaRepository.findByIdAndClienteId(reservaId,clienteId)
+        Reserva reserva = reservaRepository.findById(reservaId)
                 .orElseThrow(()-> new Exception("no existe reserva"));
 
         reserva.setEstado(EstadoReserva.CANCELADA);
