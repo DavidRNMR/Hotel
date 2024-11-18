@@ -21,6 +21,8 @@ public class Resena {
     @Enumerated(EnumType.STRING)
     private ResenaPuntuacion resenaPuntuacion;
 
+    private String descripcion;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")

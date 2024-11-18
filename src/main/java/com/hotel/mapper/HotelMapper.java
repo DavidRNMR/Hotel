@@ -2,6 +2,7 @@ package com.hotel.mapper;
 import com.hotel.dto.*;
 import com.hotel.entity.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -75,6 +76,24 @@ public Traslado fromTrasladoDTO (TrasladoDTO trasladoDTO){
     Traslado traslado = new Traslado();
     BeanUtils.copyProperties(trasladoDTO,traslado);
     return traslado;
+}
+
+public ResenaDTO fromResena (Resena resena){
+
+    ResenaDTO resenaDTO = new ResenaDTO();
+    resenaDTO.setId(resena.getId());
+    resenaDTO.setResenaPuntuacion(resena.getResenaPuntuacion());
+    resenaDTO.setDescripcion(resena.getDescripcion());
+    resenaDTO.setClienteId(resena.getCliente().getId());
+
+    return resenaDTO;
+}
+
+public Resena fromResenaDTO (ResenaDTO resenaDTO){
+
+    Resena resena = new Resena();
+    BeanUtils.copyProperties(resenaDTO,resena);
+    return  resena;
 }
 
 }

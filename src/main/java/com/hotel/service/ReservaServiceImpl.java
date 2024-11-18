@@ -4,17 +4,14 @@ import com.hotel.dto.ActividadDTO;
 import com.hotel.dto.ReservaDTO;
 import com.hotel.entity.*;
 import com.hotel.enums.EstadoReserva;
-import com.hotel.enums.TipoTraslado;
 import com.hotel.exception.HabitacionNoDisponibleException;
 import com.hotel.mapper.HotelMapper;
 import com.hotel.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
