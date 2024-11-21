@@ -33,10 +33,7 @@ public class ResenaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResenaDTO>> listarResenas(Authentication authentication) {
-        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
-        Cliente cliente = userDetails.getCliente();
-
+    public ResponseEntity<List<ResenaDTO>> listarResenas() {
         return ResponseEntity.status(HttpStatus.OK).body(resenaService.mostrarResenas());
     }
 }
