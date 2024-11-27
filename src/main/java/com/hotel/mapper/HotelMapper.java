@@ -2,11 +2,9 @@ package com.hotel.mapper;
 import com.hotel.dto.*;
 import com.hotel.entity.*;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class HotelMapper {
@@ -27,7 +25,7 @@ public ReservaDTO fromReserva (Reserva reserva){
     reservaDTO.setHabitacionTipoId(habitacionTipo.getId());
 
     Pago pago = reserva.getPago();
-    reservaDTO.setPagoId(pago.getId());
+    reservaDTO.setPrecio(pago.getMonto());
 
     List<Actividad> actividades = reserva.getActividades();
 

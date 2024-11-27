@@ -3,6 +3,7 @@ package com.hotel.dto;
 import com.hotel.enums.EstadoReserva;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ReservaDTO {
     private Long clienteId;
     private String nombreCliente;
     private Long habitacionTipoId;
-    private Long pagoId;
+    private BigDecimal precio;
     private List<ActividadDTO> actividadDTOList = new ArrayList<>();
     private TrasladoDTO trasladoDTO;
 }
