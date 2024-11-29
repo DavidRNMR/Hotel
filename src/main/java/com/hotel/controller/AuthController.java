@@ -1,8 +1,10 @@
 package com.hotel.controller;
 
+import com.hotel.auth.ClienteUserDetails;
 import com.hotel.auth.JwtUtil;
 import com.hotel.dto.AuthResponseDTO;
 import com.hotel.dto.ClienteDTO;
+import com.hotel.entity.Cliente;
 import com.hotel.service.ClienteServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,6 +56,12 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación");
         }
+    }
+    @GetMapping("/cliente")
+    public ResponseEntity<String> getNombre(Authentication authentication){
+        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
+        Cliente cliente = userDetails.getCliente();
+        return ResponseEntity.status(HttpStatus.OK).body(cliente.getNombre());
     }
 
 }

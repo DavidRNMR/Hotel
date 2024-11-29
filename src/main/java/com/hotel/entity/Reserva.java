@@ -1,11 +1,13 @@
 package com.hotel.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hotel.enums.EstadoReserva;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class Reserva {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "traslado_id")
     private Traslado traslado;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime fechaReserva;
 
     public void aniadirActividad (Actividad actividad){
         actividades.add(actividad);

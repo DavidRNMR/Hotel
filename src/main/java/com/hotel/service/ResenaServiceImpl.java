@@ -9,6 +9,7 @@ import com.hotel.repository.ResenaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class ResenaServiceImpl implements ResenaService{
 
         Resena resena = hotelMapper.fromResenaDTO(resenaDTO);
         resena.setCliente(cliente);
+        resena.setFechaResena(LocalDateTime.now());
 
         resenaRepository.save(resena);
 

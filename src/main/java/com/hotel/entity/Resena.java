@@ -1,10 +1,13 @@
 package com.hotel.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hotel.enums.ResenaPuntuacion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -22,6 +25,8 @@ public class Resena {
     private ResenaPuntuacion resenaPuntuacion;
 
     private String descripcion;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime fechaResena;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

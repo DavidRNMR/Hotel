@@ -45,6 +45,8 @@ public class ClienteServiceImpl implements ClienteService, UserDetailsService {
     }
 
 
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Cliente cliente = clienteRepository.findByEmail(email)

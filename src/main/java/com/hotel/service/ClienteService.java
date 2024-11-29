@@ -2,6 +2,7 @@ package com.hotel.service;
 
 
 import com.hotel.dto.ClienteDTO;
+import org.springframework.security.core.Authentication;
 
 public interface ClienteService {
 
@@ -9,4 +10,5 @@ public interface ClienteService {
 
     ClienteDTO findByEmail (String email) throws Exception;
     boolean existsByEmail(String email);
+
 }

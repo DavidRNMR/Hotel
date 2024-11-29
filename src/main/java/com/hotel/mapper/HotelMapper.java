@@ -4,6 +4,7 @@ import com.hotel.entity.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -16,6 +17,7 @@ public ReservaDTO fromReserva (Reserva reserva){
     reservaDTO.setFechaInicio(reserva.getFechaInicio());
     reservaDTO.setFechaFin(reserva.getFechaFin());
     reservaDTO.setEstado(reserva.getEstado());
+    reservaDTO.setFechaReserva(LocalDateTime.now());
 
     Cliente cliente = reserva.getCliente();
     reservaDTO.setClienteId(cliente.getId());
@@ -82,6 +84,7 @@ public ResenaDTO fromResena (Resena resena){
     resenaDTO.setId(resena.getId());
     resenaDTO.setResenaPuntuacion(resena.getResenaPuntuacion());
     resenaDTO.setDescripcion(resena.getDescripcion());
+    resenaDTO.setFechaResena(LocalDateTime.now());
     resenaDTO.setClienteId(resena.getCliente().getId());
 
     return resenaDTO;
