@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ public class ReservaServiceImpl implements ReservaService {
             reserva.setFechaInicio(fechaInicio);
             reserva.setFechaFin(fechaFin);
             reserva.setEstado(EstadoReserva.CONFIRMADA);
+            reserva.setFechaReserva(LocalDateTime.now());
 
             List<ActividadDTO> actividadDTOList = reservaDTO.getActividadDTOList();
 
