@@ -3,6 +3,7 @@ package com.hotel.controller;
 import com.hotel.auth.ClienteUserDetails;
 import com.hotel.auth.JwtUtil;
 import com.hotel.dto.AuthResponseDTO;
+import com.hotel.dto.ClienteProfileDTO;
 import com.hotel.dto.ClienteDTO;
 import com.hotel.entity.Cliente;
 import com.hotel.service.ClienteServiceImpl;
@@ -62,6 +63,23 @@ public class AuthController {
         ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
         Cliente cliente = userDetails.getCliente();
         return ResponseEntity.status(HttpStatus.OK).body(cliente.getNombre());
+    }
+
+    @PutMapping("/actualizar-perfil")
+    public ResponseEntity<ClienteProfileDTO> actualizarPerfil (@RequestBody ClienteProfileDTO clienteProfileDTO, Authentication authentication) throws Exception {
+        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
+        Cliente cliente = userDetails.getCliente();
+
+        return ResponseEntity.status(HttpStatus.OK).body(clienteServiceImpl.actualizarPerfil(clienteProfileDTO,cliente.getEmail()));
+    }
+
+    @GetMapping()
+    public ResponseEntity<ClienteProfileDTO> obtenerDatosCliente (Authentication authentication) throws Exception {
+        ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
+        Cliente cliente = userDetails.getCliente();
+
+        return ResponseEntity.status(HttpStatus.OK).body(clienteServiceImpl.getCliente(cliente.getId()));
+
     }
 
 }

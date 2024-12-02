@@ -1,6 +1,7 @@
 package com.hotel.service;
 
 import com.hotel.auth.ClienteUserDetails;
+import com.hotel.dto.ClienteProfileDTO;
 import com.hotel.dto.ClienteDTO;
 import com.hotel.entity.Cliente;
 import com.hotel.mapper.HotelMapper;
@@ -44,7 +45,22 @@ public class ClienteServiceImpl implements ClienteService, UserDetailsService {
         return clienteRepository.existsByEmail(email);
     }
 
+    @Override
+    public ClienteProfileDTO actualizarPerfil(ClienteProfileDTO clienteProfileDTO, String email) throws Exception {
 
+        Cliente cliente = clienteRepository.findByEmail(email)
+                .orElseThrow(()->new Exception("El cliente no existe"));
+
+        cliente.setNombre(clienteProfileDTO.getNombre());
+        cliente.setEmail(clienteProfileDTO.getEmail());
+        cliente.setTelefono(clienteProfileDTO.getTelefono());
+        cliente.setPassword(passwordEncoder.encode(clienteProfileDTO.getPassword()));
+
+        clienteRepository.save(cliente);
+
+        return mapper.fromClienteProfile(cliente);
+
+    }
 
 
     @Override
@@ -52,5 +68,14 @@ public class ClienteServiceImpl implements ClienteService, UserDetailsService {
         Cliente cliente = clienteRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
         return new ClienteUserDetails(cliente);
+    }
+
+    @Override
+    public ClienteProfileDTO getCliente(Long id) throws Exception {
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(()->new Exception("no existe ese cliente"));
+
+        return mapper.fromClienteProfile(cliente);
     }
 }

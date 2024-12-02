@@ -97,4 +97,11 @@ public Resena fromResenaDTO (ResenaDTO resenaDTO){
     return  resena;
 }
 
+    public ClienteProfileDTO fromClienteProfile(Cliente cliente) {
+
+    ClienteProfileDTO clienteActualizadoDTO = new ClienteProfileDTO();
+    BeanUtils.copyProperties(cliente,clienteActualizadoDTO);
+    return  clienteActualizadoDTO;
+
+}
 }
