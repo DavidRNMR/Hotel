@@ -52,6 +52,10 @@ public class ClienteServiceImpl implements ClienteService, UserDetailsService {
                 .orElseThrow(()->new Exception("El cliente no existe"));
 
         cliente.setNombre(clienteProfileDTO.getNombre());
+
+        if(clienteRepository.existsByEmail(clienteProfileDTO.getEmail())){
+            throw new Exception("El email ya esta registrado");
+        }
         cliente.setEmail(clienteProfileDTO.getEmail());
         cliente.setTelefono(clienteProfileDTO.getTelefono());
         cliente.setPassword(passwordEncoder.encode(clienteProfileDTO.getPassword()));

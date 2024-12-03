@@ -23,11 +23,9 @@ public class ResenaServiceImpl implements ResenaService{
     private HotelMapper hotelMapper;
 
     @Override
-    public ResenaDTO crearResena(ResenaDTO resenaDTO) throws Exception {
+    public ResenaDTO crearResena(ResenaDTO resenaDTO,Long id) throws Exception {
 
-        Long clienteId = resenaDTO.getClienteId();
-
-        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(()-> new Exception("no existe cliente con esa id"));
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(()-> new Exception("no existe cliente con esa id"));
 
         Resena resena = hotelMapper.fromResenaDTO(resenaDTO);
         resena.setCliente(cliente);

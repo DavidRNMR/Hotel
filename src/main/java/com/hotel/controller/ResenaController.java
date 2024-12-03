@@ -26,8 +26,7 @@ public class ResenaController {
         ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
         Cliente cliente = userDetails.getCliente();
 
-        resenaDTO.setClienteId(cliente.getId());
-        ResenaDTO newResenaDTO = resenaService.crearResena(resenaDTO);
+        ResenaDTO newResenaDTO = resenaService.crearResena(resenaDTO,cliente.getId());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newResenaDTO);
     }

@@ -66,11 +66,17 @@ public class AuthController {
     }
 
     @PutMapping("/actualizar-perfil")
-    public ResponseEntity<ClienteProfileDTO> actualizarPerfil (@RequestBody ClienteProfileDTO clienteProfileDTO, Authentication authentication) throws Exception {
+    public ResponseEntity<?> actualizarPerfil (@RequestBody ClienteProfileDTO clienteProfileDTO, Authentication authentication) throws Exception {
         ClienteUserDetails userDetails = (ClienteUserDetails) authentication.getPrincipal();
         Cliente cliente = userDetails.getCliente();
 
-        return ResponseEntity.status(HttpStatus.OK).body(clienteServiceImpl.actualizarPerfil(clienteProfileDTO,cliente.getEmail()));
+        try {
+            clienteServiceImpl.actualizarPerfil(clienteProfileDTO, cliente.getEmail());
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario actualizado con éxito");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping()

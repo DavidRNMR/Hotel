@@ -15,5 +15,5 @@ public class ResenaDTO {
     private String descripcion;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaResena;
-    private Long clienteId;
+    private String nombreCliente;
 }
