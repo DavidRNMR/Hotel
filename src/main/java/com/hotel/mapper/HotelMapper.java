@@ -84,7 +84,7 @@ public ResenaDTO fromResena (Resena resena){
     resenaDTO.setId(resena.getId());
     resenaDTO.setResenaPuntuacion(resena.getResenaPuntuacion());
     resenaDTO.setDescripcion(resena.getDescripcion());
-    resenaDTO.setFechaResena(LocalDateTime.now());
+    resenaDTO.setFechaResena(resena.getFechaResena());
     resenaDTO.setNombreCliente(resena.getCliente().getNombre());
 
     return resenaDTO;
