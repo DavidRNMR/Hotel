@@ -17,7 +17,7 @@ public ReservaDTO fromReserva (Reserva reserva){
     reservaDTO.setFechaInicio(reserva.getFechaInicio());
     reservaDTO.setFechaFin(reserva.getFechaFin());
     reservaDTO.setEstado(reserva.getEstado());
-    reservaDTO.setFechaReserva(LocalDateTime.now());
+    reservaDTO.setFechaReserva(reserva.getFechaReserva());
 
     Cliente cliente = reserva.getCliente();
     reservaDTO.setClienteId(cliente.getId());
