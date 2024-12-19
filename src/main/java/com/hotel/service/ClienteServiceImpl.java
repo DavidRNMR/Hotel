@@ -49,23 +49,29 @@ public class ClienteServiceImpl implements ClienteService, UserDetailsService {
     public ClienteProfileDTO actualizarPerfil(ClienteProfileDTO clienteProfileDTO, String email) throws Exception {
 
         Cliente cliente = clienteRepository.findByEmail(email)
-                .orElseThrow(()->new Exception("El cliente no existe"));
+                .orElseThrow(() -> new Exception("El cliente no existe"));
+
+        boolean emailCambiado = !clienteProfileDTO.getEmail().equals(cliente.getEmail());
+
+        if (emailCambiado) {
+            if (clienteRepository.existsByEmail(clienteProfileDTO.getEmail())) {
+                throw new Exception("El email ya está registrado");
+            }
+            cliente.setEmail(clienteProfileDTO.getEmail());
+        }
 
         cliente.setNombre(clienteProfileDTO.getNombre());
-
-        if(clienteRepository.existsByEmail(clienteProfileDTO.getEmail())){
-            throw new Exception("El email ya esta registrado");
-        }
-        cliente.setEmail(clienteProfileDTO.getEmail());
         cliente.setTelefono(clienteProfileDTO.getTelefono());
-        cliente.setPassword(passwordEncoder.encode(clienteProfileDTO.getPassword()));
+
+        if (clienteProfileDTO.getPassword() != null && !clienteProfileDTO.getPassword().isEmpty()) {
+            cliente.setPassword(passwordEncoder.encode(clienteProfileDTO.getPassword()));
+        }
 
         clienteRepository.save(cliente);
 
         return mapper.fromClienteProfile(cliente);
 
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
