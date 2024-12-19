@@ -1,0 +1,10 @@
+apiVersion: 1
+datasources:
+  - name: MySQL
+    type: mysql
+    url: db:3306
+    user: appuser
+    password: apppass
+    database: hotel
+    isDefault: true
+    editable: true
